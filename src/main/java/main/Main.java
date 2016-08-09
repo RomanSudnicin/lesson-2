@@ -9,6 +9,7 @@ import org.eclipse.jetty.servlet.ServletContextHandler;
 import org.eclipse.jetty.servlet.ServletHolder;
 import servlets.SignInServlet;
 import servlets.SignUpServlet;
+import servlets.StopServlet;
 
 /**
  * Created by roman on 06.08.16.
@@ -16,10 +17,10 @@ import servlets.SignUpServlet;
 public class Main {
     public static void main (String[] args) throws Exception {
 
-
         ServletContextHandler servletContextHandler = new ServletContextHandler(ServletContextHandler.SESSIONS);
-        servletContextHandler.addServlet(new ServletHolder(new SignUpServlet()),"signup");
-        servletContextHandler.addServlet(new ServletHolder(new SignInServlet()),"signin");
+        servletContextHandler.addServlet(new ServletHolder(new SignUpServlet()),"/signup");
+        servletContextHandler.addServlet(new ServletHolder(new SignInServlet()),"/signin");
+        servletContextHandler.addServlet(new ServletHolder(new StopServlet()),"/stop");
 
 
         ResourceHandler resourceHandler = new ResourceHandler();
@@ -32,7 +33,8 @@ public class Main {
         Server server = new Server(8080);
         server.setHandler(handlers);
         server.start();
-        server.join();
         System.out.println("Server started");
+        server.join();
+
     }
 }
