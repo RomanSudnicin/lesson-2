@@ -10,9 +10,18 @@ public class AccountService {
     private final Map<String,UserProfile> loginToProfile;
     private final Map<String,UserProfile> sessionIdToProfile;
 
+    private static AccountService accountService;
+
     private AccountService (){
         loginToProfile = new HashMap();
         sessionIdToProfile = new HashMap<>();
+    }
+
+    public static AccountService getAccountService(){
+        if(accountService == null) {
+            accountService = new AccountService();
+        }
+        return accountService;
     }
 
     public void addNewUser(UserProfile userProfile){
