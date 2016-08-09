@@ -1,10 +1,14 @@
 package main;
 
+import accounts.AccountService;
 import org.eclipse.jetty.server.Handler;
 import org.eclipse.jetty.server.Server;
 import org.eclipse.jetty.server.handler.HandlerList;
 import org.eclipse.jetty.server.handler.ResourceHandler;
 import org.eclipse.jetty.servlet.ServletContextHandler;
+import org.eclipse.jetty.servlet.ServletHolder;
+import servlets.SignInServlet;
+import servlets.SignUpServlet;
 
 /**
  * Created by roman on 06.08.16.
@@ -12,7 +16,11 @@ import org.eclipse.jetty.servlet.ServletContextHandler;
 public class Main {
     public static void main (String[] args) throws Exception {
 
+
         ServletContextHandler servletContextHandler = new ServletContextHandler(ServletContextHandler.SESSIONS);
+        servletContextHandler.addServlet(new ServletHolder(new SignUpServlet()),"signup");
+        servletContextHandler.addServlet(new ServletHolder(new SignInServlet()),"signin");
+
 
         ResourceHandler resourceHandler = new ResourceHandler();
         resourceHandler.setResourceBase("public_html");
